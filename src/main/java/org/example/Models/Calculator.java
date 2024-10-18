@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Calculator {
-
+    // main calculation method
     public double calculate(String expression) {
         expression += " ";
         ArrayList<String> array = new ArrayList<>(parseToArray(expression));
@@ -17,8 +17,7 @@ public class Calculator {
         double result = calculateResult(ONP);
         return result;
     }
-
-    // Парсинг строки в массив чисел и операторов
+    //parsing from string to array of elements
     List<String> parseToArray(String expression) {
         ArrayList<String> array = new ArrayList<>();
         String temp = "";
@@ -44,40 +43,36 @@ public class Calculator {
         return array;
     }
 
-    // Преобразование в ОНП
+    // Transformation into RNP
     ArrayList<String> toONP(ArrayList<String> array) {
         ArrayList<String> ONP = new ArrayList<>();
         ArrayList<String> stos = new ArrayList<>();
 
         for (String s : array) {
             if (isInteger(s)) {
-                ONP.add(s);  // Если это число, добавляем в выходную строку
+                ONP.add(s);
             } else if (s.equals("(")) {
-                stos.add(s);  // Открывающую скобку добавляем в стек
+                stos.add(s);
             } else if (s.equals(")")) {
-                // Выталкиваем операторы из стека в выходную строку до открывающей скобки
                 while (!stos.isEmpty() && !stos.get(stos.size() - 1).equals("(")) {
                     ONP.add(stos.remove(stos.size() - 1));
                 }
-                stos.remove(stos.size() - 1);  // Убираем открывающую скобку
+                stos.remove(stos.size() - 1);
             } else if (isOperator(s)) {
-                // Выталкиваем операторы из стека с большим или равным приоритетом
                 while (!stos.isEmpty() && prioryty(s) <= prioryty(stos.get(stos.size() - 1))) {
                     ONP.add(stos.remove(stos.size() - 1));
                 }
-                stos.add(s);  // Добавляем текущий оператор в стек
+                stos.add(s);
             }
         }
 
-        // Выталкиваем оставшиеся операторы из стека
         while (!stos.isEmpty()) {
             ONP.add(stos.remove(stos.size() - 1));
         }
 
         return ONP;
     }
-
-    // Вычисление результата по ОНП
+    // calculate from RNP to normal form
     double calculateResult(ArrayList<String> ONP) {
         ArrayList<Double> stos = new ArrayList<>();
         double a;
@@ -93,8 +88,7 @@ public class Calculator {
         }
         return stos.getLast();
     }
-
-    // Выполнение математической операции
+    // utils for calculating
     double calc(double a, double b, String operator){
         switch (operator) {
             case "+":
@@ -108,13 +102,11 @@ public class Calculator {
         }
         return -1;
     }
-
-    // Проверка, является ли строка числом
+    // check if it's a number or not
     boolean isInteger(String string) {
         return string.matches("-?\\d+");
     }
-
-    // Определение приоритета оператора
+    //operator priority determination
     int prioryty(String expression) {
         switch (expression) {
             case "(":
@@ -131,8 +123,7 @@ public class Calculator {
                 return -1;
         }
     }
-
-    // Проверка, является ли строка оператором
+    //check if it's a operator or not
     boolean isOperator(String string) {
         return string.equals("+") || string.equals("-") || string.equals("*") || string.equals("/");
     }
