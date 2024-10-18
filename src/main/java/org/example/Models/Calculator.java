@@ -84,19 +84,18 @@ public class Calculator {
         double b;
         for (String s : ONP) {
             if (isInteger(s)) {
-                stos.add(Double.parseDouble(s));  // Если это число, кладем в стек
+                stos.add(Double.parseDouble(s));
             } else {
                 b = stos.remove(stos.size() - 1);
                 a = stos.remove(stos.size() - 1);
-                stos.add(calc(a, b, s));  // Вычисляем результат и кладем его в стек
+                stos.add(calc(a, b, s));
             }
         }
-
-        return stos.get(0);  // Возвращаем финальный результат
+        return stos.getLast();
     }
 
     // Выполнение математической операции
-    double calc(double a, double b, String operator) {
+    double calc(double a, double b, String operator){
         switch (operator) {
             case "+":
                 return a + b;
@@ -112,7 +111,7 @@ public class Calculator {
 
     // Проверка, является ли строка числом
     boolean isInteger(String string) {
-        return string.matches("[-+]?\\d*\\.?\\d+");
+        return string.matches("-?\\d+");
     }
 
     // Определение приоритета оператора

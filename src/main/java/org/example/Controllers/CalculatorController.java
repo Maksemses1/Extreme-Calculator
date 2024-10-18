@@ -5,7 +5,8 @@ import org.example.Models.Calculator;
 public class CalculatorController {
     private final Calculator calculator = new Calculator();
 
-    public double calculate(String expression) {
-        return calculator.calculate(expression);
+    public String calculate(String expression) {
+        double result = calculator.calculate(expression);
+        return String.format("%.4f", result);
     }
 }

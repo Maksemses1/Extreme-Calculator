@@ -45,8 +45,8 @@ public class CalculatorGUI extends JFrame {
     private class ButtonClickListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             String expression = textField.getText();
-            String result = String.format("%.0f", calculatorController.calculate(expression));
-            System.out.println(calculatorController.calculate(result));
+            String result = calculatorController.calculate(expression);
+            System.out.println(result);
             resultLabel.setText(result);
         }
     }
