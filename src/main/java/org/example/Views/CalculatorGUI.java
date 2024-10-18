@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 public class CalculatorGUI extends JFrame {
     JTextField textField;
     JLabel resultLabel;
-    private CalculatorController calculatorController = new CalculatorController();
+    private  final CalculatorController calculatorController = new CalculatorController();
 
 
     public CalculatorGUI() {
@@ -46,7 +46,6 @@ public class CalculatorGUI extends JFrame {
         public void actionPerformed(ActionEvent e) {
             String expression = textField.getText();
             String result = calculatorController.calculate(expression);
-            System.out.println(result);
             resultLabel.setText(result);
         }
     }
