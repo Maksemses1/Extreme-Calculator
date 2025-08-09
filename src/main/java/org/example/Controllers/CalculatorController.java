@@ -7,6 +7,9 @@ public class CalculatorController {
 
     public String calculate(String expression) {
         double result = calculator.calculate(expression);
-        return String.format("%.4f", result);
+        if (result % 1 == 0) {
+            return  String.format("%.0f", result);
+        }
+        return String.format("%.2f", result);
     }
 }
